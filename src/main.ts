@@ -19,21 +19,24 @@ const loop = (
     ctx: CanvasRenderingContext2D,
     history: Ball[],
     ball: Ball,
-    orbitRadiusM: number
+    orbitRadiusM: number,
+    tickSpeed: number
 ) => {
     ctx.clearRect(-375, -375, 750, 750);
     drawEarth(ctx);
     drawHistory(ctx, history);
     drawBall(ctx, ball);
-    tick(ball, history, orbitRadiusM);
+    tick(ball, history, orbitRadiusM, tickSpeed);
 };
 
 let oldInterval: number | undefined;
 
 const initializeLoop = () => {
     const ctx = renderContext();
-    const input = document.querySelector<HTMLInputElement>("#radius")!;
-    const orbitRadiusKM = parseFloat(input.value);
+    const speedInput = document.querySelector<HTMLInputElement>("#speed")!;
+    const tickSpeed = parseFloat(speedInput.value);
+    const radiusInput = document.querySelector<HTMLInputElement>("#radius")!;
+    const orbitRadiusKM = parseFloat(radiusInput.value);
     const orbitRadiusM = orbitRadiusKM * 1000;
     const earthGroundLayer = -EARTH_RADIUS_M - orbitRadiusM;
 
@@ -45,17 +48,22 @@ const initializeLoop = () => {
 
     clearInterval(oldInterval);
     oldInterval = setInterval(() => {
-        loop(ctx, history, ball, orbitRadiusM);
+        loop(ctx, history, ball, orbitRadiusM, tickSpeed);
     }, LOOP_DELTA);
 };
 
 const main = () => {
     const ctx = renderContext();
     ctx.translate(375, 375);
-    const input = document.querySelector<HTMLInputElement>("#radius")!;
-    input.addEventListener("input", () => {
+    const radiusInput = document.querySelector<HTMLInputElement>("#radius")!;
+    radiusInput.addEventListener("input", () => {
         initializeLoop();
     });
+    const speedInput = document.querySelector<HTMLInputElement>("#speed")!;
+    speedInput.addEventListener("input", () => {
+        initializeLoop();
+    });
+
     initializeLoop();
 };
 

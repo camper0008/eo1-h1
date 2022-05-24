@@ -46,12 +46,17 @@ const rightUnitVector = (ball: Ball): Vector2 => {
 const RUNTIME_PER_HISTORY_ADDITION = 120;
 let runtime = RUNTIME_PER_HISTORY_ADDITION - 1;
 
-export const tick = (ball: Ball, history: Ball[], orbitRadiusM: number) => {
+export const tick = (
+    ball: Ball,
+    history: Ball[],
+    orbitRadiusM: number,
+    tickSpeed: number
+) => {
     const text = [
         `hastighed: ${velocity(orbitRadiusM)} m/s`,
         `omkreds: ${circumference(orbitRadiusM)} m`,
     ];
-    let vel = velocity(orbitRadiusM) * LOOP_DELTA;
+    let vel = velocity(orbitRadiusM) * LOOP_DELTA * tickSpeed;
     let right = rightUnitVector(ball);
     ball.x += vel * right.x;
     ball.y += vel * right.y;
