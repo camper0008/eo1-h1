@@ -64,6 +64,9 @@ const main = () => {
         initializeLoop();
     });
 
+    radiusInput.value = "250";
+    speedInput.value = "1";
+
     initializeLoop();
 };
 
