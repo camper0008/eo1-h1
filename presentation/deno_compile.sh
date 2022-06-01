@@ -1,0 +1,1 @@
+deno bundle --config deno.jsonc index.ts index.out.js
