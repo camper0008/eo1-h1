@@ -1,0 +1,1 @@
+deno bundle main.ts bundle.js
