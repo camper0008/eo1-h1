@@ -1,1 +1,1 @@
-deno bundle main.ts bundle.js
+deno bundle src/main.ts bundle.js
