@@ -1,4 +1,12 @@
-# eo1-h1
+
+# eo1-h1 - Orbital calculations
+
+
+- [ ] Beskrevet matematik for cirkulær kredsløb
+- [ ] Lavet en grafisk kombineret numerisk og analytisk simulation
+
+
+
 
 physics simulation for eo1
 
