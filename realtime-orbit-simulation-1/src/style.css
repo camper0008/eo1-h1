@@ -1,4 +1,4 @@
-#app {
+body {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -12,3 +12,20 @@
     border: 2px solid black;
 }
 
+input:first-of-type, label:first-of-type {
+    margin-top: 0.8rem;
+}
+
+input,label {
+    margin-bottom: 0.8rem;
+}
+
+p {
+    text-align: center;
+}
+
+pre {
+    max-width: max-content;
+    margin: 0 auto;
+    text-align: left;
+}

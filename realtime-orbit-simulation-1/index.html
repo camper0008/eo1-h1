@@ -7,15 +7,43 @@
         <title>Vite App</title>
     </head>
     <body>
-        <div id="app">
-            <canvas id="canvas" width="750" height="750"></canvas>
-            <br />
-            <label for="radius">radius [km]</label>
-            <input id="radius" type="text" />
-            <br />
-            <label for="speed">speed scale</label>
-            <input id="speed" type="text" />
-        </div>
+        <canvas id="canvas" width="750" height="750"></canvas>
+        <br />
+        <label for="radius">radius [km]</label>
+        <input id="radius" type="text" />
+        <br />
+        <label for="speed">speed scale</label>
+        <input id="speed" type="text" />
+        <h2>math used:</h2>
+        <p>constants</p>
+        <pre>
+G[kg<sup>-1</sup> * m<sup>3</sup> * s<sup>-2</sup>] = 6.674 * 10<sup>-11</sup> 
+M[kg] = "earth mass" = 5.9722 * 10<sup>24</sup> kg
+R[m] = "earth radius" = 6.3781 * 10<sup>6</sup> m
+r = R + "orbit height"</pre
+        >
+        <p>velocity</p>
+        <pre>
+v<sup>2</sup> = G * M * (1 / r)
+v = sqrt(v<sup>2</sup>)</pre
+        >
+        <p>circumference</p>
+        <pre>c = 2 * PI * r</pre>
+        <p>units</p>
+        <pre>
+v<sup>2</sup> [m<sup>2</sup>/s<sup>2</sup>] = G[kg<sup>-1</sup> * m<sup>3</sup> * s<sup>-2</sup>] * M[kg] * r^-1[m<sup>-1</sup>]
+[m<sup>2</sup>/s<sup>2</sup>] = [kg<sup>-1</sup> * m<sup>3</sup> * s<sup>-2</sup>] * [kg] * [m<sup>-1</sup>]
+m<sup>2</sup>/s<sup>2</sup> = kg<sup>-1</sup> * m<sup>3</sup> * s<sup>-2</sup> * kg<sup>1</sup> * m<sup>-1</sup>
+m<sup>2</sup>/s<sup>2</sup> = kg<sup>1</sup> * kg<sup>-1</sup> * m<sup>3</sup> * m<sup>-1</sup> * s<sup>-2</sup>
+m<sup>2</sup>/s<sup>2</sup> = kg<sup>0</sup> * m<sup>2</sup>* s<sup>-2</sup>
+m<sup>2</sup>/s<sup>2</sup> = m<sup>2</sup> * s<sup>-2</sup>
+        </pre>
+        <p>
+            source:
+            <a href="https://youtu.be/PooFvQEN4n8"
+                >Orbital Maths at NASA with Chris Hadfield (Stand-up Maths)</a
+            >
+        </p>
         <script type="module" src="/src/main.ts"></script>
     </body>
 </html>
