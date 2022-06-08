@@ -37,13 +37,25 @@ export class CanvasGraphics implements Graphics {
 
     public fillCircle(pos: Vector2d, radius: number): void {
         this.ctx.beginPath();
-        this.ctx.arc(pos.x, pos.y, radius, Math.PI * 2, 0);
+        this.ctx.arc(
+            pos.x,
+            this.canvas.height - 1 - pos.y,
+            radius,
+            Math.PI * 2,
+            0
+        );
         this.ctx.fill();
     }
 
     public strokeCircle(pos: Vector2d, radius: number): void {
         this.ctx.beginPath();
-        this.ctx.arc(pos.x, pos.y, radius, Math.PI * 2, 0);
+        this.ctx.arc(
+            pos.x,
+            this.canvas.height - 1 - pos.y,
+            radius,
+            Math.PI * 2,
+            0
+        );
         this.ctx.stroke();
     }
 
@@ -54,23 +66,35 @@ export class CanvasGraphics implements Graphics {
         end: number
     ): void {
         this.ctx.beginPath();
-        this.ctx.arc(pos.x, pos.y, radius, start, end);
+        this.ctx.arc(pos.x, this.canvas.height - 1 - pos.y, radius, start, end);
         this.ctx.stroke();
     }
 
     public fillRect(pos: Vector2d, dim: Vector2d): void {
-        this.ctx.fillRect(pos.x, pos.y, dim.x, dim.y);
+        this.ctx.fillRect(
+            pos.x,
+            this.canvas.height - 1 - pos.y - dim.y,
+            dim.x,
+            dim.y
+        );
     }
 
     public strokeLine(a: Vector2d, b: Vector2d): void {
         this.ctx.beginPath();
-        this.ctx.moveTo(a.x, a.y);
-        this.ctx.lineTo(b.x, b.y);
+        this.ctx.moveTo(a.x, this.canvas.height - 1 - a.y);
+        this.ctx.lineTo(b.x, this.canvas.height - 1 - b.y);
         this.ctx.stroke();
     }
 
     public drawImage(image: HTMLImageElement, pos: Vector2d, dim?: Vector2d) {
-        if (dim) this.ctx.drawImage(image, pos.x, pos.y, dim.x, dim.y);
-        else this.ctx.drawImage(image, pos.x, pos.y);
+        if (dim)
+            this.ctx.drawImage(
+                image,
+                pos.x,
+                this.canvas.height - 1 - pos.y - dim.y,
+                dim.x,
+                dim.y
+            );
+        else this.ctx.drawImage(image, pos.x, this.canvas.height - 1 - pos.y);
     }
 }

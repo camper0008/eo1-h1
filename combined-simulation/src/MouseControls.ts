@@ -18,22 +18,19 @@ export class MouseControls implements System<MyContext> {
                     ctx.canvas.width / ctx.canvas.clientWidth,
                     ctx.canvas.height / ctx.canvas.clientHeight
                 )
-            );
+            )
+            .multiply(vec2d(1, -1));
 
         ctx.offset = this.dragstartoffset.copy().add(drag);
     }
 
     public start(ctx: MyContext) {
         const sessionScale = sessionStorage.getItem("scale");
-        if (sessionScale) ctx.scale = parseFloat(sessionScale);
-
         const sessionOffsetX = sessionStorage.getItem("offsetX");
-        if (sessionOffsetX)
-            ctx.offset.x = parseFloat(sessionStorage.getItem("offsetX")!);
-
         const sessionOffsetY = sessionStorage.getItem("offsetY");
-        if (sessionOffsetY)
-            ctx.offset.y = parseFloat(sessionStorage.getItem("offsetY")!);
+        if (sessionScale) ctx.scale = parseFloat(sessionScale);
+        if (sessionOffsetX) ctx.offset.x = parseFloat(sessionOffsetX);
+        if (sessionOffsetY) ctx.offset.y = parseFloat(sessionOffsetY);
 
         ctx.canvas.addEventListener("mousedown", (e) => {
             this.dragstart = vec2d(e.x, e.y);

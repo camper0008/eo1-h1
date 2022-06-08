@@ -64,5 +64,10 @@ export class Satellite implements Entity<MyContext> {
             this.pos.copy().multiply(vec2d(this.scale)).add(this.offset),
             1000000 * this.scale
         );
+        g.setFill(255, 255, 0);
+        g.fillRect(
+            this.pos.copy().multiply(vec2d(this.scale)).add(this.offset),
+            vec2d(1000000 * this.scale)
+        );
     }
 }
