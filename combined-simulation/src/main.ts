@@ -1,10 +1,12 @@
-import { CanvasGraphics, Vector2d, MySimulation } from './exports.ts';
+import { CanvasGraphics, MySimulation, vec2d } from "./exports.ts";
 
 const main = () => {
-    const canvas = document.querySelector<HTMLCanvasElement>('#combined-simulation')!
-    const graphics = new CanvasGraphics(canvas, new Vector2d(500, 500));
+    const canvas = document.querySelector<HTMLCanvasElement>(
+        "#combined-simulation"
+    )!;
+    const graphics = new CanvasGraphics(canvas, vec2d(1000, 1000));
     const simulation = new MySimulation(canvas, graphics);
     simulation.start();
-}
+};
 
 main();

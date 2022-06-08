@@ -1,28 +1,31 @@
-import { SystemHandler, EntityHandler, Graphics, SimulationContext } from "./exports.ts";
+import {
+    SystemHandler,
+    EntityHandler,
+    Graphics,
+    SimulationContext,
+} from "./exports.ts";
 
-export abstract class Simulation<Context extends SimulationContext = SimulationContext> {
+export abstract class Simulation<
+    Context extends SimulationContext = SimulationContext
+> {
     private interval: number | null = null;
     protected entities = new EntityHandler();
-    protected controllers = new SystemHandler();
+    protected systems = new SystemHandler();
     protected ctx = new SimulationContext(this.entities);
-    
-    public constructor (
-        private graphics: Graphics,
-    ) {}
+
+    public constructor(private graphics: Graphics) {}
 
     public start() {
-        this.controllers.start(this.ctx);
+        this.systems.start(this.ctx);
         this.interval = setInterval(() => {
-            this.controllers.tick(this.ctx);
+            this.systems.tick(this.ctx);
             this.entities.tick(this.ctx);
             this.entities.render(this.graphics);
         }, 10);
     }
 
     public stop() {
-        if (this.interval)
-            clearInterval(this.interval);
+        if (this.interval) clearInterval(this.interval);
         this.interval = null;
     }
-
 }
