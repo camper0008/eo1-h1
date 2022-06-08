@@ -15,13 +15,13 @@ export abstract class Simulation<
 
     public constructor(private graphics: Graphics) {}
 
-    public start() {
+    public start(ticksPerSecond: number) {
         this.systems.start(this.ctx);
         this.interval = setInterval(() => {
             this.systems.tick(this.ctx);
             this.entities.tick(this.ctx);
             this.entities.render(this.graphics);
-        }, 10);
+        }, 1000 / ticksPerSecond);
     }
 
     public stop() {

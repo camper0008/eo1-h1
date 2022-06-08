@@ -13,8 +13,8 @@ export const notRamHungryPrint = (
     // deno-lint-ignore no-explicit-any
     ...msg: any[]
 ) => {
-    if (notRamHungryPrintIterations[id] !== undefined)
+    if (notRamHungryPrintIterations[id] === undefined)
         notRamHungryPrintIterations[id] = 0;
-    if (notRamHungryPrintIterations[id] < max) console.log(msg);
+    if (notRamHungryPrintIterations[id] < max) console.log(...msg);
     notRamHungryPrintIterations[id]++;
 };

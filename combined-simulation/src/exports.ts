@@ -5,5 +5,4 @@ export * from "./MySimulation.ts";
 export * from "./Earth.ts";
 export * from "./MouseControls.ts";
 export * from "./Satellite.ts";
-export * from "./NamingIsHard3.ts";
 export * from "./constants.ts";

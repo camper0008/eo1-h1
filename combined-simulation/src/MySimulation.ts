@@ -7,7 +7,6 @@ import {
     Background,
     vec2d,
     Satellite,
-    NamingIsHard3,
 } from "./exports.ts";
 
 export class MySimulation extends Simulation {
@@ -18,7 +17,6 @@ export class MySimulation extends Simulation {
         const planet = new Earth();
         this.entities.add(planet);
         this.entities.add(new Satellite());
-        this.entities.add(new NamingIsHard3());
         this.ctx = new MyContext(
             this.entities,
             1,

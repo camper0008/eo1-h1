@@ -1,4 +1,9 @@
-import { CanvasGraphics, MySimulation, vec2d } from "./exports.ts";
+import {
+    CanvasGraphics,
+    MySimulation,
+    ticksPerSecond,
+    vec2d,
+} from "./exports.ts";
 
 const main = () => {
     const canvas = document.querySelector<HTMLCanvasElement>(
@@ -6,7 +11,7 @@ const main = () => {
     )!;
     const graphics = new CanvasGraphics(canvas, vec2d(1000, 1000));
     const simulation = new MySimulation(canvas, graphics);
-    simulation.start();
+    simulation.start(ticksPerSecond);
 };
 
 main();

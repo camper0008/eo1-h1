@@ -47,6 +47,17 @@ export class CanvasGraphics implements Graphics {
         this.ctx.stroke();
     }
 
+    public strokeArc(
+        pos: Vector2d,
+        radius: number,
+        start: number,
+        end: number
+    ): void {
+        this.ctx.beginPath();
+        this.ctx.arc(pos.x, pos.y, radius, start, end);
+        this.ctx.stroke();
+    }
+
     public fillRect(pos: Vector2d, dim: Vector2d): void {
         this.ctx.fillRect(pos.x, pos.y, dim.x, dim.y);
     }

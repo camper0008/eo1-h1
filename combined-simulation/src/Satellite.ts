@@ -3,6 +3,8 @@ import {
     Graphics,
     gravityConstant,
     MyContext,
+    notRamHungryPrint,
+    ticksPerSecond,
     vec2d,
     Vector2d,
 } from "./exports.ts";
@@ -19,9 +21,7 @@ export class Satellite implements Entity<MyContext> {
         this.offset = ctx.offset;
 
         const diff = ctx.planet.pos.copy().subtract(this.pos);
-        console.log(diff);
         const planetMass = ctx.planet.mass; // M = [kg]
-        const planetRadius = ctx.planet.radius; // r = [m]
         // F = GMm/r^2
         const gravityForce =
             (gravityConstant * planetMass * this.mass) / diff.length() ** 2; // F [N] = (G [m^3 / (kg * s^2)] * M [kg] * m [kg]) / (r [m])^2
@@ -37,8 +37,8 @@ export class Satellite implements Entity<MyContext> {
         const angle = Math.atan(diff.y / diff.x);
 
         const force = vec2d(
-            gravityForce * Math.sin(angle),
-            gravityForce * Math.cos(angle)
+            gravityForce * Math.cos(angle),
+            gravityForce * Math.sin(angle)
         );
 
         // F = m * a
@@ -51,15 +51,26 @@ export class Satellite implements Entity<MyContext> {
         // v = a * t [(m / s^2) * s]
         // v [m / s] = a * t
 
-        this.vel.add(force.multiply(vec2d(this.mass).multiply(vec2d(0.01))));
-        this.pos.add(this.vel);
+        const acceleration = force.multiply(vec2d(this.mass ** -1));
+        const tickAdjustedAcceleration = acceleration.multiply(
+            vec2d(ticksPerSecond ** -1)
+        );
+        notRamHungryPrint(0, 10, diff, tickAdjustedAcceleration);
+
+        this.vel.add(tickAdjustedAcceleration);
+        this.pos.add(this.vel.copy().multiply(vec2d(ticksPerSecond ** -1)));
+
+        // debugger;
     }
 
     public render(g: Graphics) {
         g.setFill(0, 255, 0);
-        g.fillRect(
+        g.fillCircle(
             this.pos.copy().multiply(vec2d(this.scale)).add(this.offset),
-            vec2d(1000, 1000).multiply(vec2d(this.scale))
+            1000 * this.scale
         );
+
+        g.setStroke(5, 125, 125, 255);
+        g.strokeArc(vec2d(0).add(this.offset), 100, 0, Math.PI * 0.25);
     }
 }
