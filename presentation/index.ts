@@ -1,11 +1,16 @@
+const storedCurrentPageOrDefault = (): string => {
+    return localStorage.getItem("currentPage") ?? "start.html";
+};
+
 const promiseCache: { [url: string]: Promise<string> | undefined } = {};
-let currentPage: string = "start.html";
+let currentPage: string = storedCurrentPageOrDefault();
 
 const main = () => {
     const htmlMain = document.querySelector<HTMLDivElement>("main#main")!;
     const startPage = fetchPage(currentPage);
     switchToPage(htmlMain, startPage);
     bindAnchorTags(htmlMain);
+    updateActiveNavLinks();
 };
 
 const anchorClicked = (htmlMain: HTMLDivElement, e: MouseEvent) => {
@@ -24,6 +29,7 @@ const anchorClicked = (htmlMain: HTMLDivElement, e: MouseEvent) => {
     }
     if (currentPage !== file) {
         currentPage = file;
+        localStorage.setItem("currentPage", file);
         updateActiveNavLinks();
     }
 };
