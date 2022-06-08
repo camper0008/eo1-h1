@@ -4,15 +4,17 @@ import {
     gravityConstant,
     MyContext,
     notRamHungryPrint,
+    setHtmlMonitorItem,
     ticksPerSecond,
     vec2d,
     Vector2d,
 } from "./exports.ts";
 
 export class Satellite implements Entity<MyContext> {
-    private pos: Vector2d = vec2d(1, 13000);
-    // private vel: Vector2d = vec2d(500000, -500000);
-    private vel: Vector2d = vec2d(0, 0);
+    private pos: Vector2d = vec2d(0, -8000);
+    // private vel: Vector2d = vec2d(-16970, -16970);
+    private vel: Vector2d = vec2d(-240000, 0);
+    // private vel: Vector2d = vec2d(0, 0);
     private mass = 10;
     private scale = 0;
     private offset: Vector2d = vec2d();
@@ -36,13 +38,10 @@ export class Satellite implements Entity<MyContext> {
         // N = m^3 * m^-2 * kg^2 * kg^-1 * s^-2
         // N = m * kg * s^-2
 
-        const xRatio = diff.length() / diff.x;
-        const yRatio = diff.length() / diff.y;
+        const xRatio = diff.x / diff.length();
+        const yRatio = diff.y / diff.length();
 
-        const force = vec2d(
-            gravityForce * xRatio,
-            gravityForce * yRatio,
-        );
+        const force = vec2d(gravityForce * xRatio, gravityForce * yRatio);
 
         // F = m * a
 
@@ -55,12 +54,26 @@ export class Satellite implements Entity<MyContext> {
         // v [m / s] = a * t
 
         const acceleration = force.multiply(vec2d(this.mass ** -1));
-        const tickAdjustedAcceleration = acceleration.multiply(vec2d(ticksPerSecond ** -1));
-        notRamHungryPrint(0, 10, 'pos:', this.pos, '\nvel:', this.vel, '\ndiff:', diff);
+        const tickAdjustedAcceleration = acceleration.multiply(
+            // vec2d((ticksPerSecond * 100) ** -1)
+            vec2d(ticksPerSecond ** -1)
+        );
+        setHtmlMonitorItem("pos", this.pos);
+        setHtmlMonitorItem("vel", this.vel);
+        setHtmlMonitorItem("diff", diff);
+        setHtmlMonitorItem("gravityForce", gravityForce);
+        setHtmlMonitorItem("force", force);
+        setHtmlMonitorItem("acceleration", acceleration);
+        setHtmlMonitorItem(
+            "tickAdjustedAcceleration",
+            tickAdjustedAcceleration
+        );
 
         this.vel.add(tickAdjustedAcceleration);
-        this.pos.add(this.vel.copy().multiply(vec2d((ticksPerSecond * 100) ** -1)));
-        // this.pos.add(this.vel.copy().multiply(vec2d((ticksPerSecond) ** -1)));
+        // this.pos.add(
+        //     this.vel.copy().multiply(vec2d((ticksPerSecond * 100) ** -1))
+        // );
+        this.pos.add(this.vel.copy().multiply(vec2d(ticksPerSecond ** -1)));
 
         // debugger;
     }
