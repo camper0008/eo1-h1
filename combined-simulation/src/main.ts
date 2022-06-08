@@ -58,10 +58,10 @@ const main = () => {
     });
 
     calculateSpeedButton.addEventListener("click", () => {
-        const speed =
-            (gravityConstant * v(planetMassInput) * v(satMassInput)) /
-            v(satAbsDstInput);
-        satSpeedInput.value = speed.toExponential(3);
+        const speed = Math.sqrt(
+            gravityConstant * v(planetMassInput) * (1 / v(satAbsDstInput))
+        );
+        satSpeedInput.value = speed.toExponential(4);
     });
 
     const graphics = new CanvasGraphics(canvas, vec2d(1000, 1000));
