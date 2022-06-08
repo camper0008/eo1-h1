@@ -46,6 +46,7 @@ export class Vector2d {
     }
 
     public divideN(n: number): Vector2d {
+        if (n === 0) throw new Error("cannot divide by zero");
         this.x /= n;
         this.y /= n;
         return this;
