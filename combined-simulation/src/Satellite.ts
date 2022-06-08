@@ -10,7 +10,8 @@ import {
 } from "./exports.ts";
 
 export class Satellite implements Entity<MyContext> {
-    private pos: Vector2d = vec2d(0, 0);
+    private pos: Vector2d = vec2d(1, 13000);
+    // private vel: Vector2d = vec2d(500000, -500000);
     private vel: Vector2d = vec2d(0, 0);
     private mass = 10;
     private scale = 0;
@@ -20,6 +21,7 @@ export class Satellite implements Entity<MyContext> {
         this.scale = ctx.scale;
         this.offset = ctx.offset;
 
+        // const diff = ctx.planet.pos.copy().subtract(this.pos);
         const diff = ctx.planet.pos.copy().subtract(this.pos);
         const planetMass = ctx.planet.mass; // M = [kg]
         // F = GMm/r^2
@@ -34,11 +36,12 @@ export class Satellite implements Entity<MyContext> {
         // N = m^3 * m^-2 * kg^2 * kg^-1 * s^-2
         // N = m * kg * s^-2
 
-        const angle = Math.atan(diff.y / diff.x);
+        const xRatio = diff.length() / diff.x;
+        const yRatio = diff.length() / diff.y;
 
         const force = vec2d(
-            gravityForce * Math.cos(angle),
-            gravityForce * Math.sin(angle)
+            gravityForce * xRatio,
+            gravityForce * yRatio,
         );
 
         // F = m * a
@@ -52,13 +55,12 @@ export class Satellite implements Entity<MyContext> {
         // v [m / s] = a * t
 
         const acceleration = force.multiply(vec2d(this.mass ** -1));
-        const tickAdjustedAcceleration = acceleration.multiply(
-            vec2d(ticksPerSecond ** -1)
-        );
-        notRamHungryPrint(0, 10, diff, tickAdjustedAcceleration);
+        const tickAdjustedAcceleration = acceleration.multiply(vec2d(ticksPerSecond ** -1));
+        notRamHungryPrint(0, 10, 'pos:', this.pos, '\nvel:', this.vel, '\ndiff:', diff);
 
         this.vel.add(tickAdjustedAcceleration);
-        this.pos.add(this.vel.copy().multiply(vec2d(ticksPerSecond ** -1)));
+        this.pos.add(this.vel.copy().multiply(vec2d((ticksPerSecond * 100) ** -1)));
+        // this.pos.add(this.vel.copy().multiply(vec2d((ticksPerSecond) ** -1)));
 
         // debugger;
     }

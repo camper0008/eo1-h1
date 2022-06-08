@@ -9,7 +9,7 @@ import {
 } from "./exports.ts";
 
 export class Earth implements Entity<MyContext> {
-    public pos: Vector2d = vec2d(0, 6500);
+    public pos: Vector2d = vec2d(0, 0);
     public mass = earthMassKg;
     public radius = earthRadiusM;
     private scale = 1;
