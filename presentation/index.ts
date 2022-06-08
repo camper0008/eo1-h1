@@ -1,24 +1,30 @@
-const cache: { [url: string]: Promise<string> | undefined } = {};
+const promiseCache: { [url: string]: Promise<string> | undefined } = {};
+let currentPage: string = "start.html";
 
 const main = () => {
     const htmlMain = document.querySelector<HTMLDivElement>("main#main")!;
-    const startPage = fetchPage("start.html");
-
+    const startPage = fetchPage(currentPage);
     switchToPage(htmlMain, startPage);
     bindAnchorTags(htmlMain);
 };
 
 const anchorClicked = (htmlMain: HTMLDivElement, e: MouseEvent) => {
     const url = (e.target as HTMLAnchorElement).href;
-    if (url.startsWith("#")) return;
+    const file = url.substring(url.lastIndexOf("/") + 1);
 
     e.preventDefault();
-    if (cache[url] !== undefined) {
-        switchToPage(htmlMain, cache[url]!);
+    if (file !== currentPage) {
+    }
+    if (promiseCache[file] !== undefined) {
+        switchToPage(htmlMain, promiseCache[file]!);
     } else {
-        const promise = fetchPage(url);
-        cache[url] = promise;
+        const promise = fetchPage(file);
+        promiseCache[file] = promise;
         switchToPage(htmlMain, promise);
+    }
+    if (currentPage !== file) {
+        currentPage = file;
+        updateActiveNavLinks();
     }
 };
 
@@ -35,11 +41,34 @@ const fetchPage = async (url: string): Promise<string> => {
 };
 
 const bindAnchorTags = (htmlMain: HTMLDivElement) => {
-    document.querySelectorAll("[data-spa-anchor]").forEach((el: Element) => {
-        el.addEventListener("click", (e: Event) => {
-            anchorClicked(htmlMain, e as MouseEvent);
+    document
+        .querySelectorAll<HTMLAnchorElement>("[data-spa-anchor]")
+        .forEach((el) => {
+            el.addEventListener("click", (e: Event) => {
+                anchorClicked(htmlMain, e as MouseEvent);
+            });
         });
-    });
+};
+
+const wipeActiveNavLinks = () => {
+    document
+        .querySelectorAll<HTMLAnchorElement>(
+            `.nav-link.active[data-spa-anchor]`
+        )
+        .forEach((el) => el.classList.remove("active"));
+};
+
+const setActiveNavLinks = () => {
+    document
+        .querySelectorAll<HTMLAnchorElement>(
+            `.nav-link[href="${currentPage}"][data-spa-anchor]`
+        )
+        .forEach((el) => el.classList.add("active"));
+};
+
+const updateActiveNavLinks = () => {
+    wipeActiveNavLinks();
+    setActiveNavLinks();
 };
 
 const loadingPage = () => /*html*/ `
