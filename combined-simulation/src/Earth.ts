@@ -21,7 +21,7 @@ export class Earth implements Entity<MyContext> {
     }
 
     public render(g: Graphics): void {
-        g.setFill(255);
+        g.setFill(0, 100, 230);
         g.fillCircle(
             this.pos.copy().multiply(vec2d(this.scale)).add(this.offset),
             (this.radius / 1000) * this.scale
