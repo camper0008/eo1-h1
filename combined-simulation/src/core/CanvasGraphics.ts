@@ -86,6 +86,16 @@ export class CanvasGraphics implements Graphics {
         this.ctx.stroke();
     }
 
+    public strokePath(path: Vector2d[]) {
+        if (path.length <= 1) return;
+        this.ctx.beginPath();
+        this.ctx.moveTo(path[0].x, this.canvas.height - 1 - path[0].y);
+        path.slice(1).forEach(({ x, y }) =>
+            this.ctx.lineTo(x, this.canvas.height - 1 - y)
+        );
+        this.ctx.stroke();
+    }
+
     public drawImage(image: HTMLImageElement, pos: Vector2d, dim?: Vector2d) {
         if (dim)
             this.ctx.drawImage(
