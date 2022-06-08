@@ -1,6 +1,6 @@
 import {
     MyContext,
-    Earth,
+    Planet,
     Simulation,
     Graphics,
     MouseControls,
@@ -10,13 +10,38 @@ import {
     KeybindControls,
 } from "./exports.ts";
 
+export type MySimulationOptions = {
+    planetRadius: number;
+    planetMass: number;
+    satelliteMass: number;
+    satelliteDistance: number;
+    satelliteSpeed: number;
+    timeScale: number;
+};
+
 export class MySimulation extends Simulation {
-    public constructor(canvas: HTMLCanvasElement, graphics: Graphics) {
+    public constructor(
+        canvas: HTMLCanvasElement,
+        graphics: Graphics,
+        {
+            planetMass,
+            planetRadius,
+            satelliteMass,
+            satelliteDistance,
+            satelliteSpeed,
+            timeScale,
+        }: MySimulationOptions
+    ) {
         super(graphics);
+        this.timeScale = timeScale;
         this.systems.add(new MouseControls());
         this.entities.add(new Background());
-        const planet = new Earth();
-        const satellite = new Satellite();
+        const planet = new Planet(planetMass, planetRadius);
+        const satellite = new Satellite(
+            satelliteMass,
+            satelliteDistance,
+            satelliteSpeed
+        );
         this.entities.add(planet);
         this.entities.add(satellite);
         this.systems.add(new KeybindControls());

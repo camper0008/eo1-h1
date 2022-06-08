@@ -15,6 +15,40 @@
             <canvas id="combined-simulation"></canvas>
         </div>
 
+        <div id="sidebar">
+            <select id="cs-presets">
+                <option disabled selected>Select Preset</option>
+                <option value="earth">Earth</option>
+                <option value="custom">Custom Values</option>
+            </select><br>
+
+            <label for="cs-planet-radius">Planet radius [m]</label><br>
+            <input type="text" id="cs-planet-radius" value="6.378e+6"><br>
+
+            <label for="cs-planet-mass">Planet mass [m]</label><br>
+            <input type="text" id="cs-planet-mass" value="5.972e+24"><br>
+
+            <label for="cs-satellite-mass">Satellite mass [kg]</label><br>
+            <input type="text" id="cs-satellite-mass" value="10"><br>
+
+            <label for="cs-satellite-surface-distance">Satellite surface distance [m]</label><br>
+            <input type="text" id="cs-satellite-surface-distance" value="100000"><br>
+
+            <label for="cs-satellite-absolute-distance">Satellite absolute distance [m]</label><br>
+            <input type="text" id="cs-satellite-absolute-distance" value="6.379e+6"><br>
+
+            <label for="cs-satellite-speed">Satellite speed [m/s]</label><br>
+            <input type="text" id="cs-satellite-speed" value="8000"><br>
+
+            <button id="cs-calc-satellite-speed">Calculate speed</button><br>
+            <label for="cs-time-scale">Time scale</label value="100"><br>
+
+            <input type="text" id="cs-tick-speed" value="100"><br>
+            <br>
+            <button id="cs-simulate">Simulate</button>
+
+        </div>
+
         <script src="bundle.js"></script>
     </body>
 </html>

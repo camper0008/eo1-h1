@@ -10,16 +10,20 @@ import {
 } from "./exports.ts";
 
 export class Satellite implements Entity<MyContext> {
-    public pos: Vector2d = vec2d(0, earthRadiusM + 1000);
-    public vel: Vector2d = vec2d(8000, 0);
+    public pos: Vector2d = vec2d();
+    public vel: Vector2d = vec2d();
 
-    private mass = 10;
     private scale = 0;
     private offset: Vector2d = vec2d();
 
     private traces: Vector2d[] = [];
 
     private startTime = Date.now();
+
+    public constructor(public mass = 10, distance: number, speed: number) {
+        this.pos = vec2d(0, distance);
+        this.vel = vec2d(speed, 0);
+    }
 
     public tick(ctx: MyContext, deltaT: number) {
         this.scale = ctx.scale;

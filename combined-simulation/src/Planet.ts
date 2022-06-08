@@ -1,19 +1,11 @@
-import {
-    Graphics,
-    Vector2d,
-    MyContext,
-    earthMassKg,
-    earthRadiusM,
-    Entity,
-    vec2d,
-} from "./exports.ts";
+import { Graphics, Vector2d, MyContext, Entity, vec2d } from "./exports.ts";
 
-export class Earth implements Entity<MyContext> {
+export class Planet implements Entity<MyContext> {
     public pos: Vector2d = vec2d(0, 0);
-    public mass = earthMassKg;
-    public radius = earthRadiusM;
     private scale = 1;
     private offset: Vector2d = vec2d(0, 0);
+
+    public constructor(public mass: number, public radius: number) {}
 
     public tick(ctx: MyContext): void {
         this.scale = ctx.scale;
