@@ -48,32 +48,68 @@
     </div>
 
     <main role="main" class="container">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-6">
-                    <div></div>
-                    <img src="assets/orbit.PNG" alt="no orbit image" width="50%" height="50%">
+        <div class="p-2">
+            <div class="container bg-light rounded">
+                <div class="row">
+    
+                    <div class="col-md-6">
+                        <div class="col-md-11">
+                            <h2>Billede 1:</h2>
+                            <div class="p-3">
+                                <img src="assets/orbit.PNG" alt="no orbit image" width="70%" height="70%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-11">
+                            <h2>Billede 2:</h2>
+                            <img src="assets/orbit-slice.PNG" alt="no orbit-slice image" width="100%" height="100%">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <img src="assets/orbit-slice.PNG" alt="no orbit-slice image" width="50%" height="50%">
-                </div>
-
-
-
             </div>
+
+        </div>
+        <div class="p-2">
+            <div class="container bg-light rounded">
+                <div class="container">
+                    <h2>Alle formler der bliver brugt</h2>
+                    <p>
+                        <span id="law-of-force"></span>
+                        <br>
+                        <span id="circular-motion"></span>
+                        <br>
+                        <span id="accelerated-motion"></span>
+                        <br>
+                        <span id="speed-law"></span>
+                        
+                    </p>
+                </div>
+            </div>
+            <div class="p-2">
+                <div class="container bg-light rounded">
+                    <div class="container">
+                        <h2>Beregning af acceleration</h2>
+                        <p>
+                            Billede 1 og 2 er ligedannede fordi at vinklen mellem r og v_1 og r og v_2 er 90 grader
+                        </p>
+                        <span id="vectors"></span>
+                        <br>
+                        <p>
+                            Så derfor kan vi sætte et forhold imellem dem op
+                        </p>
+                        
+                        <span id="acceleration-formular"></span>
+                        <p>
+                            og med lidt isolering kan vi få a til at stå alene 
+                        </p>
+                    </div>
+                </div>
+            
         </div>
         <br>
         <br>
-        <span id="law-of-force"></span>
         <br>
-        <span id="vectors"></span>
-        <br>
-        <span id="circular-motion"></span>
-        <br>
-        <span id="accelerated-motion"></span>
-        <br>
-        <span id="acceleration-formular"></span>
         <br>
         <span id="accelerated-motion-with-acceleration"></span>
         <script>
@@ -89,6 +125,8 @@
             katex.render("\\frac{\\Delta \\vec{v}}{\\Delta t \\cdot v} = \\frac{v}{r} \\Downarrow \\newline a = \\frac{\\Delta \\vec{v}}{\\Delta t} = \\frac{v^2}{r}", accelerationFormular);
             const acceleratedMotionWithAcceleration = document.getElementById("accelerated-motion-with-acceleration")
             katex.render("\\frac{GMm}{r^2} = \\frac{m \\cdot v^2}{r} \\newline = v^2 = GM(\\frac{1}{r})", acceleratedMotionWithAcceleration)
+            const speedLaw = document.getElementById("speed-law");
+            katex.render("v = \\frac{s}{t}", speedLaw);
         </script>
 
 
