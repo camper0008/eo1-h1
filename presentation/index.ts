@@ -1,21 +1,46 @@
-
+const cache: { [url: string]: Promise<string> | undefined } = {};
 
 const main = () => {
-    const htmlMain = document.querySelector<HTMLDivElement>('main#main')!;
-    const startPage = fetchPage('start.html');
-    const numeriskPage = fetchPage('numerisk.html');
+    const htmlMain = document.querySelector<HTMLDivElement>("main#main")!;
+    const startPage = fetchPage("start.html");
 
-    switchToPage(htmlMain, numeriskPage);
-}
+    switchToPage(htmlMain, startPage);
+    bindAnchorTags(htmlMain);
+};
 
-const switchToPage = async (htmlMain: HTMLDivElement, page: Promise<string>) => {
+const anchorClicked = (htmlMain: HTMLDivElement, e: MouseEvent) => {
+    const url = (e.target as HTMLAnchorElement).href;
+    if (url.startsWith("#")) return;
+
+    e.preventDefault();
+    if (cache[url] !== undefined) {
+        switchToPage(htmlMain, cache[url]!);
+    } else {
+        const promise = fetchPage(url);
+        cache[url] = promise;
+        switchToPage(htmlMain, promise);
+    }
+};
+
+const switchToPage = async (
+    htmlMain: HTMLDivElement,
+    page: Promise<string>
+) => {
     htmlMain.innerHTML = await page;
-}
+};
 
 const fetchPage = async (url: string): Promise<string> => {
     const res = await fetch(url);
     return res.text();
-}
+};
+
+const bindAnchorTags = (htmlMain: HTMLDivElement) => {
+    document.querySelectorAll("[data-spa-anchor]").forEach((el: Element) => {
+        el.addEventListener("click", (e: Event) => {
+            anchorClicked(htmlMain, e as MouseEvent);
+        });
+    });
+};
 
 const loadingPage = () => /*html*/ `
     <div class="px-4 py-5 text-center">
