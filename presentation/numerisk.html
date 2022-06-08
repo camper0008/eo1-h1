@@ -94,14 +94,13 @@
                             Billede 1 og 2 er ligedannede fordi at vinklen mellem r og v_1 og r og v_2 er 90 grader
                         </p>
                         <span id="vectors"></span>
-                        <br>
                         <p>
                             Så derfor kan vi sætte et forhold imellem dem op
                         </p>
                         
                         <span id="acceleration-formular"></span>
                         <p>
-                            og med lidt isolering kan vi få a til at stå alene 
+                            Og med lidt isolering kan vi få a til at stå alene 
                         </p>
                     </div>
                 </div>
@@ -109,15 +108,38 @@
                 <div class="p-2">
                     <div class="container bg-light rounded">
                         <div class="container">
-                            <h2> Beregning af hastighed for at blive i kredsløb</h2>
+                            <h2>Beregning af hastighed for at blive i kredsløb</h2>
+                            <p>
+                                Vi starter med at sætte de to formler til at være lig med hinanden
+                            </p>
+                            <span id="something-thats-doing-something-idk-i-want-to-go-to-beeeed"></span>
+                            <p>
+                                Så sætter vi formlen for acceleration in på a's plads
+                            </p>
                             <span id="accelerated-motion-with-acceleration1"></span>
-                            <br>
+                            <p>
+                                m'erne går ud med hinanden
+                            </p>
                             <span id="accelerated-motion-with-acceleration2"></span>
-                            <br>
-                            <span id="speed-for-orbit"></span>
-
+                            <p>
+                                Det gør r'erne også, og nu har vi så formlen for den fart vi skal bruge til at blive i kredsløb
+                            </p>
+                            <span id="speed-for-orbit1"></span>
                         </div>
                     </div>
+                    <div class="p-2">
+                        <div class="container bg-light rounded">
+                            <div class="container">
+                                <h2>Hvad kan vi se ud fra resultatet?</h2>
+                                <p>
+                                    Ud fra resultatet kan vi se at objektet i kredsløbets masse er irrelevant for farten
+                                </p>
+                                <p>
+                                    Vi kan også se at jo tættere vi er på jorden jo højere skal vores fart være
+                                </p>
+                                <span id="speed-for-orbit2"></span>
+                            </div>
+                        </div>
             
         </div>
         <script>
@@ -131,14 +153,19 @@
             katex.render("F = \\frac{GMm}{r^2}", acceleratedMotion);
             const accelerationFormular = document.getElementById("acceleration-formular");
             katex.render("\\frac{\\Delta \\vec{v}}{\\Delta t \\cdot v} = \\frac{v}{r} \\Downarrow \\newline a = \\frac{\\Delta \\vec{v}}{\\Delta t} = \\frac{v^2}{r}", accelerationFormular);
+            const somethingThatsDoingSomethingIdkIWantToGoToBeeeed = document.getElementById("something-thats-doing-something-idk-i-want-to-go-to-beeeed");
+            katex.render("F = \\frac{GMm}{r^2} = m \\cdot a", somethingThatsDoingSomethingIdkIWantToGoToBeeeed);
             const acceleratedMotionWithAcceleration1 = document.getElementById("accelerated-motion-with-acceleration1")
             katex.render("\\frac{GMm}{r^2} = \\frac{m \\cdot v^2}{r}", acceleratedMotionWithAcceleration1)
             const acceleratedMotionWithAcceleration2 = document.getElementById("accelerated-motion-with-acceleration2")
             katex.render("\\frac{GM}{r^2} = \\frac{v^2}{r}", acceleratedMotionWithAcceleration2)
-            const speedForOrbit = document.getElementById("speed-for-orbit");
-            katex.render("v^2 = \\frac{GM}{r}", speedForOrbit);
+            const speedForOrbit1 = document.getElementById("speed-for-orbit1");
+            katex.render("v^2 = \\frac{GM}{r}", speedForOrbit1);
+            const speedForOrbit2 = document.getElementById("speed-for-orbit2");
+            katex.render("v^2 = \\frac{GM}{r}", speedForOrbit2);
             const speedLaw = document.getElementById("speed-law");
             katex.render("v = \\frac{s}{t}", speedLaw);
+            
         </script>
 
 
