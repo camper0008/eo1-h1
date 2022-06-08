@@ -39,6 +39,8 @@ const switchToPage = async (
     page: Promise<string>
 ) => {
     htmlMain.innerHTML = await page;
+    // @ts-ignore
+    renderMathInElement(htmlMain);
 };
 
 const fetchPage = async (url: string): Promise<string> => {
