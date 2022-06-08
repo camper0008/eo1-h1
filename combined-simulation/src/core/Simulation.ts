@@ -5,13 +5,12 @@ import {
     SimulationContext,
 } from "./exports.ts";
 
-export abstract class Simulation<
-    Context extends SimulationContext = SimulationContext
-> {
+export abstract class Simulation {
     private interval: number | null = null;
     protected entities = new EntityHandler();
     protected systems = new SystemHandler();
     protected ctx = new SimulationContext(this.entities);
+    protected timeScale = 1;
 
     public constructor(private graphics: Graphics) {}
 
@@ -20,7 +19,7 @@ export abstract class Simulation<
         let before = Date.now();
         this.interval = setInterval(() => {
             const now = Date.now();
-            const deltaT = (now - before) / 1000;
+            const deltaT = ((now - before) / 1000) * this.timeScale;
             before = now;
             this.systems.tick(this.ctx, deltaT);
             this.entities.tick(this.ctx, deltaT);

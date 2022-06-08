@@ -1,6 +1,6 @@
 import {
     EntityHandler,
-    Earth,
+    Planet,
     SimulationContext,
     Vector2d,
     Satellite,
@@ -13,7 +13,7 @@ export class MyContext extends SimulationContext {
         public offset: Vector2d,
         public window: Window,
         public canvas: HTMLCanvasElement,
-        public planet: Earth,
+        public planet: Planet,
         public satellite: Satellite
     ) {
         super(entities);
