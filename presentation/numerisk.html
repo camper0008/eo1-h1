@@ -105,13 +105,21 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="p-2">
+                    <div class="container bg-light rounded">
+                        <div class="container">
+                            <h2> Beregning af hastighed for at blive i kredsløb</h2>
+                            <span id="accelerated-motion-with-acceleration1"></span>
+                            <br>
+                            <span id="accelerated-motion-with-acceleration2"></span>
+                            <br>
+                            <span id="speed-for-orbit"></span>
+
+                        </div>
+                    </div>
             
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <span id="accelerated-motion-with-acceleration"></span>
         <script>
             const lawOfForce = document.getElementById("law-of-force");
             katex.render("F = m \\cdot a", lawOfForce);
@@ -123,8 +131,12 @@
             katex.render("F = \\frac{GMm}{r^2}", acceleratedMotion);
             const accelerationFormular = document.getElementById("acceleration-formular");
             katex.render("\\frac{\\Delta \\vec{v}}{\\Delta t \\cdot v} = \\frac{v}{r} \\Downarrow \\newline a = \\frac{\\Delta \\vec{v}}{\\Delta t} = \\frac{v^2}{r}", accelerationFormular);
-            const acceleratedMotionWithAcceleration = document.getElementById("accelerated-motion-with-acceleration")
-            katex.render("\\frac{GMm}{r^2} = \\frac{m \\cdot v^2}{r} \\newline = v^2 = GM(\\frac{1}{r})", acceleratedMotionWithAcceleration)
+            const acceleratedMotionWithAcceleration1 = document.getElementById("accelerated-motion-with-acceleration1")
+            katex.render("\\frac{GMm}{r^2} = \\frac{m \\cdot v^2}{r}", acceleratedMotionWithAcceleration1)
+            const acceleratedMotionWithAcceleration2 = document.getElementById("accelerated-motion-with-acceleration2")
+            katex.render("\\frac{GM}{r^2} = \\frac{v^2}{r}", acceleratedMotionWithAcceleration2)
+            const speedForOrbit = document.getElementById("speed-for-orbit");
+            katex.render("v^2 = \\frac{GM}{r}", speedForOrbit);
             const speedLaw = document.getElementById("speed-law");
             katex.render("v = \\frac{s}{t}", speedLaw);
         </script>
