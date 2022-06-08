@@ -10,43 +10,22 @@ import {
 } from "./exports.ts";
 
 export class Satellite implements Entity<MyContext> {
-    private pos: Vector2d = vec2d(0, earthRadiusM + 1000);
-    // private vel: Vector2d = vec2d(-16970, -16970);
-    private vel: Vector2d = vec2d(8000, 0);
-    // private vel: Vector2d = vec2d(0, 0);
+    public pos: Vector2d = vec2d(0, earthRadiusM + 1000);
+    public vel: Vector2d = vec2d(8000, 0);
+
     private mass = 10;
     private scale = 0;
     private offset: Vector2d = vec2d();
 
+    private traces: Vector2d[] = [];
+
     private startTime = Date.now();
 
-    private firstTimeTickCalled = true;
     public tick(ctx: MyContext, deltaT: number) {
-        if (this.firstTimeTickCalled) {
-            this.firstTimeTickCalled = false;
-            ctx.window.addEventListener("keydown", (e) => {
-                if (e.key === "n") {
-                    ctx.offset.x = -this.pos.x * this.scale + 500;
-                    ctx.offset.y = -this.pos.y * this.scale + 500;
-                    // ctx.scale = 1;
-                } else if (e.key === "m") {
-                    ctx.offset.x = 500;
-                    ctx.offset.y = 500;
-                    // ctx.scale = 0.000055;
-                } else if (e.key === "N") {
-                    ctx.scale = 1;
-                    ctx.offset.x = -this.pos.x * this.scale + 500;
-                    ctx.offset.y = -this.pos.y * this.scale + 500;
-                } else if (e.key === "M") {
-                    ctx.scale = 0.000055;
-                    ctx.offset.x = 500;
-                    ctx.offset.y = 500;
-                }
-            });
-        }
-
         this.scale = ctx.scale;
         this.offset = ctx.offset;
+
+        this.traces.push(this.pos.copy());
 
         const diff = ctx.planet.pos.copy().subtract(this.pos);
 
@@ -91,19 +70,26 @@ export class Satellite implements Entity<MyContext> {
     }
 
     public render(g: Graphics) {
+        g.setStroke(2, 255, 255, 255);
+        g.strokePath(
+            this.traces.map((trace) =>
+                trace.copy().multiplyN(this.scale).add(this.offset)
+            )
+        );
+
         g.setFill(0, 255, 0);
         g.fillCircle(
-            this.pos.copy().multiply(vec2d(this.scale)).add(this.offset),
+            this.pos.copy().multiplyN(this.scale).add(this.offset),
             100 * this.scale
         );
-        g.setStroke(2, 255, 0, 0);
-        g.strokeLine(
-            vec2d(this.pos.x * this.scale + this.offset.x, 0),
-            vec2d(this.pos.x * this.scale + this.offset.x, g.dim().y)
-        );
-        g.strokeLine(
-            vec2d(0, this.pos.y * this.scale + this.offset.y),
-            vec2d(g.dim().x, this.pos.y * this.scale + this.offset.y)
-        );
+        // g.setStroke(2, 255, 0, 0);
+        // g.strokeLine(
+        //     vec2d(this.pos.x * this.scale + this.offset.x, 0),
+        //     vec2d(this.pos.x * this.scale + this.offset.x, g.dim().y)
+        // );
+        // g.strokeLine(
+        //     vec2d(0, this.pos.y * this.scale + this.offset.y),
+        //     vec2d(g.dim().x, this.pos.y * this.scale + this.offset.y)
+        // );
     }
 }

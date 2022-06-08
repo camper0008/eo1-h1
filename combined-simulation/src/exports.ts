@@ -6,3 +6,4 @@ export * from "./Earth.ts";
 export * from "./MouseControls.ts";
 export * from "./Satellite.ts";
 export * from "./constants.ts";
+export * from "./KeybindControls.ts";

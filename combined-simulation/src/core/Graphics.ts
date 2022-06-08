@@ -16,5 +16,6 @@ export interface Graphics {
     strokeArc(pos: Vector2d, radius: number, start: number, end: number): void;
     fillRect(pos: Vector2d, dim: Vector2d): void;
     strokeLine(a: Vector2d, b: Vector2d): void;
+    strokePath(path: Vector2d[]): void;
     drawImage(image: HTMLImageElement, pos: Vector2d, dim?: Vector2d): void;
 }

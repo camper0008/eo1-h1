@@ -3,6 +3,7 @@ import {
     Earth,
     SimulationContext,
     Vector2d,
+    Satellite,
 } from "./exports.ts";
 
 export class MyContext extends SimulationContext {
@@ -12,7 +13,8 @@ export class MyContext extends SimulationContext {
         public offset: Vector2d,
         public window: Window,
         public canvas: HTMLCanvasElement,
-        public planet: Earth
+        public planet: Earth,
+        public satellite: Satellite
     ) {
         super(entities);
     }
