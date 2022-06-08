@@ -16,6 +16,10 @@ export class CanvasGraphics implements Graphics {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
+    public dimensions() {
+        return new Vector2d(this.canvas.width, this.canvas.height);
+    }
+
     public setFill(red: number, green = red, blue = green, alpha = 1) {
         this.ctx.fillStyle = `rgba(${red},${green},${blue},${alpha})`;
     }

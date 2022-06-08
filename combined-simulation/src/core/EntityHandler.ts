@@ -12,10 +12,10 @@ export class EntityHandler<Context extends SimulationContext = SimulationContext
     }
 
     public tick(ctx: Context) {
-        [...this.entities].forEach((e) => e.tick(ctx));
+        [...this.entities].forEach((e) => e.tick && e.tick(ctx));
     }
 
     public render(g: Graphics) {
-        [...this.entities].forEach((e) => e.render(g));
+        [...this.entities].forEach((e) => e.render && e.render(g));
     }
 }
