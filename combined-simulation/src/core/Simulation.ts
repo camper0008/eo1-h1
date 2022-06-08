@@ -15,13 +15,17 @@ export abstract class Simulation<
 
     public constructor(private graphics: Graphics) {}
 
-    public start(ticksPerSecond: number) {
+    public start() {
         this.systems.start(this.ctx);
+        let before = Date.now();
         this.interval = setInterval(() => {
-            this.systems.tick(this.ctx);
-            this.entities.tick(this.ctx);
+            const now = Date.now();
+            const deltaT = (now - before) / 1000;
+            before = now;
+            this.systems.tick(this.ctx, deltaT);
+            this.entities.tick(this.ctx, deltaT);
             this.entities.render(this.graphics);
-        }, 1000 / ticksPerSecond);
+        }, 10);
     }
 
     public stop() {

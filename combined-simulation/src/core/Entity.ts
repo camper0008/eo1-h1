@@ -1,6 +1,6 @@
-import { Graphics, SimulationContext } from './exports.ts';
+import { Graphics, SimulationContext } from "./exports.ts";
 
 export interface Entity<Context extends SimulationContext = SimulationContext> {
-    tick?(ctx: Context): void;
+    tick?(ctx: Context, deltaT: number): void;
     render?(g: Graphics): void;
 }

@@ -26,7 +26,7 @@ export class Background implements Entity<MyContext> {
     private renderRuler(g: Graphics, ticklen: number) {
         g.strokeLine(vec2d(this.offset.x, 0), vec2d(this.offset.x, g.dim().y));
         g.strokeLine(vec2d(0, this.offset.y), vec2d(g.dim().x, this.offset.y));
-        range(6, -1)
+        range(-1, 10)
             .map((n) => 10 ** n)
             .map((n) => {
                 const makeRulerNotch = (

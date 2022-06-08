@@ -26,6 +26,30 @@ export class Vector2d {
         this.y *= v.y;
         return this;
     }
+
+    public addN(n: number): Vector2d {
+        this.x += n;
+        this.y += n;
+        return this;
+    }
+
+    public subtractN(n: number): Vector2d {
+        this.x -= n;
+        this.y -= n;
+        return this;
+    }
+
+    public multiplyN(n: number): Vector2d {
+        this.x *= n;
+        this.y *= n;
+        return this;
+    }
+
+    public divideN(n: number): Vector2d {
+        this.x /= n;
+        this.y /= n;
+        return this;
+    }
 }
 
 export const vec2d = (x = 0, y = x) => new Vector2d(x, y);

@@ -1,6 +1,8 @@
 import { System, SimulationContext } from "./exports.ts";
 
-export class SystemHandler<Context extends SimulationContext = SimulationContext> {
+export class SystemHandler<
+    Context extends SimulationContext = SimulationContext
+> {
     private systems: System<Context>[] = [];
 
     public add(controller: System<Context>) {
@@ -15,8 +17,7 @@ export class SystemHandler<Context extends SimulationContext = SimulationContext
         [...this.systems].map((s) => s.start && s.start(ctx));
     }
 
-    public tick(ctx: Context) {
-        [...this.systems].map((s) => s.tick && s.tick(ctx));
+    public tick(ctx: Context, deltaT: number) {
+        [...this.systems].map((s) => s.tick && s.tick(ctx, deltaT));
     }
-
 }

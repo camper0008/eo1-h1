@@ -8,4 +8,4 @@ export * from "./System.ts";
 export * from "./SystemHandler.ts";
 export * from "./Vector2d.ts";
 export * from "./utils.ts";
-export * from "./debugUtils.ts";
+export * as Debug from "./debugUtils.ts";
