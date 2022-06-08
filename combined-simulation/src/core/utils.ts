@@ -5,3 +5,5 @@ export const range = (min: number, max: number, step = 1): number[] => {
     }
     return res;
 };
+
+export const notZero = (v: number, min = 1) => Math.max(v, min);

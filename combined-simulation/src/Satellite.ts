@@ -5,6 +5,7 @@ import {
     Graphics,
     gravityConstant,
     MyContext,
+    notZero,
     vec2d,
     Vector2d,
 } from "./exports.ts";
@@ -25,52 +26,67 @@ export class Satellite implements Entity<MyContext> {
         this.vel = vec2d(speed, 0);
     }
 
-    public tick(ctx: MyContext, deltaT: number) {
-        this.scale = ctx.scale;
-        this.offset = ctx.offset;
+    private calculateNewVelocityAndPosition(ctx: MyContext, deltaT: number) {
+        const radiusVector = ctx.planet.pos.copy().subtract(this.pos);
 
-        this.traces.push(this.pos.copy());
+        const µ = gravityConstant * ctx.planet.mass;
+        const absoluteGravityForce =
+            (µ * this.mass) / notZero(radiusVector.length()) ** 2;
 
-        const diff = ctx.planet.pos.copy().subtract(this.pos);
+        const radiusUnitVector = radiusVector
+            .copy()
+            .divideN(notZero(radiusVector.length()));
 
-        const gravityForce =
-            (gravityConstant * ctx.planet.mass * this.mass) /
-            Math.max(diff.length(), 1) ** 2;
-
-        const xRatio = diff.x / Math.max(diff.length(), 1);
-        const yRatio = diff.y / Math.max(diff.length(), 1);
-
-        const XYratio = diff.copy().divideN(Math.max(diff.length(), 1));
-
-        const force = vec2d(gravityForce).multiply(XYratio);
+        const force = vec2d(absoluteGravityForce).multiply(radiusUnitVector);
 
         const acceleration = force.divideN(this.mass).multiplyN(deltaT);
-
-        {
-            Debug.setHtmlMonitorItem("scale", this.scale);
-            Debug.setHtmlMonitorItem("offset", this.offset);
-            Debug.setHtmlMonitorItem("pos before", this.pos);
-            Debug.setHtmlMonitorItem("vel before", this.vel);
-            Debug.setHtmlMonitorItem("deltaT", deltaT);
-            Debug.setHtmlMonitorItem("runtime", Date.now() - this.startTime);
-        }
 
         this.vel = this.vel.add(acceleration);
         this.pos.add(this.vel.copy().multiplyN(deltaT));
 
+        // returning values for debugging purposes
+        return {
+            absoluteGravityForce,
+            radiusVector,
+            radiusUnitVector,
+            force,
+            acceleration,
+        };
+    }
+
+    public tick(ctx: MyContext, deltaT: number) {
+        this.scale = ctx.scale;
+        this.offset = ctx.offset;
+        const [scaleBefore, offsetBefore] = [this.scale, this.offset.copy()];
+        this.traces.push(this.pos.copy());
+
+        const {
+            absoluteGravityForce,
+            acceleration,
+            force,
+            radiusUnitVector,
+            radiusVector,
+        } = this.calculateNewVelocityAndPosition(ctx, deltaT);
+
         {
-            Debug.setHtmlMonitorItem("diff", diff);
-            Debug.setHtmlMonitorItem("gravityForce", gravityForce);
-            Debug.setHtmlMonitorItem("xRatio", xRatio);
-            Debug.setHtmlMonitorItem("yRatio", yRatio);
+            Debug.setHtmlMonitorItem("scale", scaleBefore);
+            Debug.setHtmlMonitorItem("offset", offsetBefore);
+            Debug.setHtmlMonitorItem("pos before", this.pos);
+            Debug.setHtmlMonitorItem("vel before", this.vel);
+            Debug.setHtmlMonitorItem("deltaT", deltaT);
+            Debug.setHtmlMonitorItem("runtime", Date.now() - this.startTime);
+            Debug.setHtmlMonitorItem("radiusVector", radiusVector);
+            Debug.setHtmlMonitorItem(
+                "absoluteGravityForce",
+                absoluteGravityForce
+            );
+            Debug.setHtmlMonitorItem("radiusUnitVector", radiusUnitVector);
             Debug.setHtmlMonitorItem("force", force);
             Debug.setHtmlMonitorItem("acceleration", acceleration);
-            Debug.setHtmlMonitorItem("acceleration", diff);
+            Debug.setHtmlMonitorItem("acceleration", radiusVector);
             Debug.setHtmlMonitorItem("vel after", this.vel);
             Debug.setHtmlMonitorItem("pos after", this.pos);
         }
-
-        // debugger;
     }
 
     public render(g: Graphics) {
@@ -86,14 +102,5 @@ export class Satellite implements Entity<MyContext> {
             this.pos.copy().multiplyN(this.scale).add(this.offset),
             100 * this.scale
         );
-        // g.setStroke(2, 255, 0, 0);
-        // g.strokeLine(
-        //     vec2d(this.pos.x * this.scale + this.offset.x, 0),
-        //     vec2d(this.pos.x * this.scale + this.offset.x, g.dim().y)
-        // );
-        // g.strokeLine(
-        //     vec2d(0, this.pos.y * this.scale + this.offset.y),
-        //     vec2d(g.dim().x, this.pos.y * this.scale + this.offset.y)
-        // );
     }
 }
