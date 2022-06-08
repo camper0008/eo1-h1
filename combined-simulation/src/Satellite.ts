@@ -1,6 +1,5 @@
 import {
     Debug,
-    earthRadiusM,
     Entity,
     Graphics,
     gravityConstant,
