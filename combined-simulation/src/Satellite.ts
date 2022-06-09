@@ -57,7 +57,6 @@ export class Satellite implements Entity<MyContext> {
         this.scale = ctx.scale;
         this.offset = ctx.offset;
         const [scaleBefore, offsetBefore] = [this.scale, this.offset.copy()];
-        this.traces.push(this.pos.copy());
 
         const {
             absoluteGravityForce,
@@ -86,6 +85,7 @@ export class Satellite implements Entity<MyContext> {
             Debug.setHtmlMonitorItem("vel after", this.vel);
             Debug.setHtmlMonitorItem("pos after", this.pos);
         }
+        this.traces.push(this.pos.copy());
     }
 
     public render(g: Graphics) {
