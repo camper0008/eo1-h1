@@ -40,7 +40,12 @@ const switchToPage = async (
 ) => {
     htmlMain.innerHTML = await page;
     // @ts-ignore
-    renderMathInElement(htmlMain);
+    renderMathInElement(htmlMain, {
+        delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+        ],
+    });
 };
 
 const fetchPage = async (url: string): Promise<string> => {
