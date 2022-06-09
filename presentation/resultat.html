@@ -1,8 +1,46 @@
 
 <div class="container">
-    <h2>Numerisk</h2>
+    <h2>Numeriske resultat</h2>
     <p>
-        
+        Vi har udarbejdet en metode, vi kan bruge, til at regne farten ud i et givent cirkulært kredsløb.
+        Med vores metode kan vi derved svare akkuret på opgavens spørgsmål.
+        Vores metode tager ikke højde for luftmodstand eller kollision, men er akkuret i kredsløb højere end atmosfærren.
     </p>
-
+    <h4>Fordele</h4>
+    <p>
+        Med vores metode har vi lavet et computerprogram, som kan regne farten ud, med et givent input.
+        Den skal lave 1 beregning, og kan regne præcist indenfor rammerne af
+        <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754 floatin point precision</a>.
+        Denne metode, er derfor effektiv og billig.
+    </p>
+    <h4>Ulemper</h4>
+    <p>
+        Denne metode er meget simpelt, og kræver en stor simplifisering og generalisering af virkeligheden.
+        Metoden virker ikke, fx hvis kredsløbet ellipse-formet.
+        Til mere kompliceret problemer vil denne metode ikke være tilstrækkelig.
+    </p>
+    <h2>Analytisk</h2>
+    <p>
+        Isetedet for en absolut udregning, har vi lavet analytiske berigninger, ved at opstille computerprogrammer,
+        som simulerer problemet.
+        De 2 simulationer vi har lavet er lavet lidt forskelligt, men princippet er det samme.
+        Vi opstiller en scene hvor objekter for uddeligeret en håndfuld love.
+        Disse regler er sat op, som det love fra fysikken, som er relevante for vores problem.
+    </p>
+    <h4>Fordele</h4>
+    <p>
+        Ved at definere simple regler, er det muligt at opstille meget komplekse scenarier,
+        uden stor ændring af implementeringen.
+        Fx kan vi med vores analytiske metode simulere ellipse-formede kredsløb og flere end 2 objekters interaktion.
+        At tilføje vindmodstand til simulationen, er et let opgave, med minimalt konfiguration og justering.
+    </p>
+    <p>
+        Disse simuleringer er grafiske og real-time, og kan derfor også betragtes som grafiske illustrationer.
+    </p>
+    <h4>Ulemper</h4>
+    <p>
+        Fordi at simulationen er realtime og rekreerer "rigtig" fysik, kræver den en stor mængde regnekraft.
+        Metodens akkumulative natur, gør at upræcision i implementeringerne og berigningerne forværres exponentiels
+        over simulationens runtime.
+    </p>
 </div>
