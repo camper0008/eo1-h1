@@ -28,9 +28,9 @@ export class Satellite implements Entity<MyContext> {
     private calculateNewVelocityAndPosition(ctx: MyContext, deltaT: number) {
         const radiusVector = ctx.planet.pos.copy().subtract(this.pos);
 
-        const µ = gravityConstant * ctx.planet.mass;
+        const GM = gravityConstant * ctx.planet.mass;
         const absoluteGravityForce =
-            (µ * this.mass) / notZero(radiusVector.length()) ** 2;
+            (GM * this.mass) / notZero(radiusVector.length()) ** 2;
 
         const radiusUnitVector = radiusVector
             .copy()
