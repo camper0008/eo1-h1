@@ -10,4 +10,36 @@
         drifte væk.
     </p>
     <img src="assets/analytic-theis-drift.png" />
+
+    <h2>Simons implementering</h2>
+
+    <div class="row bg-light p-3 rounded">
+        <div class="col">
+            <span>$$ \text{Satellitens position} = \vec{p} [m] $$</span>
+            <span>$$ \text{Satellitens hastighed} = \vec{v} [\frac{m}{s}] $$</span>
+            <span>$$ \text{Satellitens masse} = m [kg] $$</span>
+            <span>$$ \text{Planetens position} = \vec{P} [m] $$</span>
+            <span>$$ \text{Planetens masse} = M [kg] $$</span>
+            <span>$$ \vec{r} = \vec{p_p} - \vec{p_s} $$</span>
+            <span>$$ F_g = \frac{GMm}{\lvert \vec{r} \rvert ^2} $$</span>
+
+            <span>$$ \vec{F_g} = \hat{r} * F_g $$</span>
+            <span>$$ \vec{a} = \frac{\vec{F_g}}{m} * \Delta t $$</span>
+            
+            <span>$$ \vec{v_1} = \vec{v_0} + \vec{a} $$</span>
+            <span>$$ \vec{p_1} = \vec{p_0} + \vec{vel_1} $$</span>
+
+            <h4>Hvor kommer enhederne fra?</h4>
+            <span>$$ F_g = \frac{G [m^3 * kg^-1 * s^-2] * M [kg] * m [kg]}{\lvert \vec{r} \rvert^2 [m^2]} $$</span>
+            <span>$$ F_g = \frac{G * M * m [m^3 * s^-2 * kg] }{\lvert \vec{r} \rvert^2 [m^2]} $$</span>
+            <span>$$ F_g [N = m * kg * s^-2] = \frac{G * M * m }{\lvert \vec{r} \rvert^2} [m * kg * s^-2] $$</span>
+            <span>$$ \vec{a} = \frac{\vec{F_g} [N]}{m [kg]} * \Delta t [s] $$</span>
+            <span>$$ \vec{a} = \frac{\vec{F_g}}{m} * \Delta t [m * kg * s^-2 * kg^-1 * s] $$</span>
+            <span>$$ \vec{a} [m * s^-1] = \frac{\vec{F_g}}{m} * \Delta t [m * s^-1] $$</span>
+        </div>
+        <div class="col">
+            <img src="assets/a1.png" alt="" class="img-fluid">
+        </div>
+    </div>
+
 </div>
